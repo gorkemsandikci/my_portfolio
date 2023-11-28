@@ -14,7 +14,7 @@ import {a} from "@react-spring/three";
 
 import islandScene from '../assets/3d/island.glb';
 
-const Island = ({isRotating, setIsRotating, ...props}) => {
+const Island = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
     const islandRef = useRef();
 
     const {gl, viewport} = useThree();
@@ -44,6 +44,7 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
 
         if (isRotating) {
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+
             const delta = (clientX - lastX.current) / viewport.width;
 
             islandRef.current.rotation.y += delta * 0.01 * Math.PI;
@@ -75,7 +76,6 @@ const Island = ({isRotating, setIsRotating, ...props}) => {
             if (Math.abs(rotationSpeed.current) < 0.001) {
                 rotationSpeed.current = 0;
             }
-
             islandRef.current.rotation.y += rotationSpeed.current;
         } else {
             const rotation = islandRef.current.rotation.y;
