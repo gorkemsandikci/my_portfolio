@@ -1,16 +1,34 @@
-import {Suspense, useState} from 'react';
 import {Canvas} from '@react-three/fiber';
-import Loader from "../components/Loader.jsx";
+import {Suspense, useEffect, useRef, useState} from 'react';
 
+import sakura from "../assets/sakura.mp3";
+
+import HomeInfo from "../components/HomeInfo.jsx";
+import Loader from "../components/Loader.jsx";
 import Island from '../models/Island.jsx';
 import Sky from "../models/Sky.jsx";
 import Bird from "../models/Bird.jsx";
 import Plane from "../models/Plane.jsx";
-import HomeInfo from "../components/HomeInfo.jsx";
+
+import {soundoff, soundon} from "../assets/icons/index.js";
 
 const Home = () => {
-    const [isRotating, setIsRotating] = useState(false)
+    const audioRef = useRef(new Audio(sakura));
+    audioRef.current.volume = 0.4;
+    audioRef.current.loop = true;
+
     const [currentStage, setCurrentStage] = useState(1);
+    const [isRotating, setIsRotating] = useState(false)
+    const [isPlayingMusic, setIsPlayingMusic] = useState(false)
+
+    useEffect(() => {
+        if (isPlayingMusic) {
+            audioRef.current.play();
+        }
+        return () => {
+            audioRef.current.pause();
+        };
+    }, [isPlayingMusic]);
 
     const adjustIslandForScreenSize = () => {
         let screenScale = null;
@@ -45,7 +63,7 @@ const Home = () => {
     return (
         <section className="w-full h-screen relative">
             <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
-                {currentStage && <HomeInfo currentStage={currentStage} />}
+                {currentStage && <HomeInfo currentStage={currentStage}/>}
             </div>
             <Canvas
                 className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -73,8 +91,16 @@ const Home = () => {
                         rotation={[0, 20, 0]}
                     />
                 </Suspense>
-
             </Canvas>
+
+            <div className="absolute bottom-2 left-2">
+                <img
+                    src={!isPlayingMusic ? soundoff : soundon}
+                    alt='jukebox'
+                    onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+                    className='w-10 h-10 cursor-pointer object-contain'
+                />
+            </div>
         </section>
     )
 }
