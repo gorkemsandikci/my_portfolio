@@ -5,8 +5,8 @@ import sakura from "../assets/sakura.mp3";
 
 import HomeInfo from "../components/HomeInfo.jsx";
 import Loader from "../components/Loader.jsx";
-//import Flyland from '../models/Flyland.jsx';
-import Island from '../models/Island.jsx';
+import Flyland from '../models/Flyland.jsx';
+//import Island from '../models/Island.jsx';
 import Sky from "../models/Sky.jsx";
 import Bird from "../models/Bird.jsx";
 import Plane from "../models/Plane.jsx";
@@ -52,7 +52,7 @@ const Home = () => {
             screenPosition = [0, -1.5, 0];
         } else {
             screenScale = [3, 3, 3];
-            screenPosition = [0, -4, -4];
+            screenPosition = [-4, 0, -7];
         }
 
         return [screenScale, screenPosition];
@@ -77,7 +77,7 @@ const Home = () => {
 
                     <Bird/>
                     <Sky isRotating={isRotating}/>
-                    <Island
+                    <Flyland
                         position={islandPosition}
                         scale={islandScale}
                         rotation={islandRotation}

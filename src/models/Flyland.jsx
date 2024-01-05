@@ -139,9 +139,17 @@ const Flyland = ({isRotating, setIsRotating, setCurrentStage, ...props}) => {
     }, [gl, handlePointerDown, handlePointerUp, handlePointerMove]);
 
     return (
-        <a.group ref={islandRef} {...props}>
-            <mesh geometry={nodes.Vert.geometry} material={materials.Base}/>
-            <mesh geometry={nodes.Vert001.geometry} material={materials.Grass}/>
+        <a.group ref={islandRef} {...props} >
+            <mesh
+                geometry={nodes.Vert.geometry}
+                material={materials.Base}
+                scale={[7, 5, 7]}
+            />
+            <mesh
+                geometry={nodes.Vert001.geometry}
+                material={materials.Grass}
+                scale={[7, 3, 7]}
+            />
         </a.group>
     );
 }
