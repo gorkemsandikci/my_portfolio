@@ -5,6 +5,7 @@ import sakura from "../assets/sakura.mp3";
 
 import HomeInfo from "../components/HomeInfo.jsx";
 import Loader from "../components/Loader.jsx";
+//import Flyland from '../models/Flyland.jsx';
 import Island from '../models/Island.jsx';
 import Sky from "../models/Sky.jsx";
 import Bird from "../models/Bird.jsx";
